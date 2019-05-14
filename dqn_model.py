@@ -3,7 +3,7 @@ from tensorflow.keras import layers
 
 class QNetwork(tf.keras.Model):
 
-    def __init__(self, action_size, dense_one=400, dense_two=400):
+    def __init__(self, action_size, dense_one=64, dense_two=64):
         '''
         Params
         ======
