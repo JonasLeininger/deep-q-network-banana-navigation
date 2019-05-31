@@ -2,8 +2,8 @@ import os
 import numpy as np
 import tensorflow as tf
 
-from replay_buffer import ReplayBuffer
-from dqn_model import QNetwork
+from tensorflow.replay_buffer import ReplayBuffer
+from tensorflow.dqn_model import QNetwork
 
 
 class Agent():
