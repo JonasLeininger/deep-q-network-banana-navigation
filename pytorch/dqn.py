@@ -7,9 +7,9 @@ class DQN(nn.Module):
         super().__init__()
         self.state_size = state_size
         self.actions_size = action_size
-        self.hiddenOne = nn.Linear(64)
-        self.hiddenTwo = nn.Linear(64)
-        self.hiddenThree = nn.Linear(self.actions_size)
+        self.hiddenOne = nn.Linear(self.state_size, 64)
+        self.hiddenTwo = nn.Linear(64, 64)
+        self.hiddenThree = nn.Linear(64, self.actions_size)
 
 
     def forward(self, input):
@@ -18,6 +18,6 @@ class DQN(nn.Module):
         x = F.relu(x)
         x = self.hiddenTwo(x)
         x = F.relu(x)
-        x = self.hiddenOne(x)
-        x = F.linear(x)
+        x = self.hiddenThree(x)
+        # x = F.linear(x)
         return x.view(-1, x.size(1))
