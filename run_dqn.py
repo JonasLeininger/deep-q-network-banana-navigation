@@ -19,25 +19,6 @@ def main():
     state_size = len(state)
     print('States have length:', state_size)
 
-    # env_info = env.reset(train_mode=False)[brain_name]
-    # state = env_info.vector_observations[0]
-    # action_size = brain.vector_action_space_size
-    # state_size = len(state)
-    # score = 0 
-    # while True:
-    #     action = np.random.randint(action_size)
-    #     env_info = env.step(action)[brain_name]
-    #     next_state = env_info.vector_observations[0]
-    #     reward = env_info.rewards[0]
-    #     done = env_info.local_done[0]
-    #     score += reward
-    #     state = next_state
-    #     time.sleep(0.0001)
-    #     if done:
-    #         break
-        
-    # print("Score: {}".format(score))
-
     env_info = env.reset(train_mode=True)[brain_name]
     state = env_info.vector_observations[0]
     action_size = brain.vector_action_space_size
@@ -63,7 +44,7 @@ def main():
             state = next_state
             score += reward
             if done:
-                print("episode: {}/{}, score: {}, after time: {}".format(e, episodes, score, t))
+                print("episode: {}/{}, score: {}".format(e, episodes, score))
                 break
                 
             if ((t+1)% 4) == 0:
@@ -75,14 +56,19 @@ def main():
         
         scores.append(score)
         scores_window.append(score)
+        mean_score = np.mean(scores_window)
+        if (e >= 100) and (mean_score >= 10.0):
+            agent.save_checkpoint(epoch=e)
+            np.save(file="dqn_final_scores.npy", arr=np.asarray(scores))
+            print('\rEpisode {}\tAverage Score: {:.2f}'.format(e, mean_score))
+            break
+
         if (e)%100 == 0:
-            mean_score = np.mean(scores_window)
+            # mean_score = np.mean(scores_window)
             agent.save_checkpoint(epoch=e)
             scores_arr = np.asarray(scores)
             np.save(file="dqn_saved_scores.npy", arr=scores_arr)
             print('\rEpisode {}\tAverage Score: {:.2f}'.format(e, mean_score))
-            if mean_score >= 10.0:
-                break
 
 if __name__=='__main__':
     main()

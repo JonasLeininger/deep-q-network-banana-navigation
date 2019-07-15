@@ -21,7 +21,7 @@ class Agent():
         self.epsilon_min = 0.01
         self.epsilon_decay = 0.995
         self.learning_rate = 0.0005
-        self.checkpoint_path = "checkpoints/pytorch/cp-{epoch:04d}.pt"
+        self.checkpoint_path = "checkpoints/pytorch/double_dqn/cp-{epoch:04d}.pt"
         
         self.device = torch.device("cuda") if torch.cuda.is_available() else torch.device("cpu")
         self.qnetwork = DQN(self.state_size, self.action_size)

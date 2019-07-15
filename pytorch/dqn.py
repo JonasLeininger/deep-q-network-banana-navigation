@@ -19,5 +19,4 @@ class DQN(nn.Module):
         x = self.hiddenTwo(x)
         x = F.relu(x)
         x = self.hiddenThree(x)
-        # x = F.linear(x)
         return x.view(-1, x.size(1))

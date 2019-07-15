@@ -63,7 +63,7 @@ def main():
             state = next_state
             score += reward
             if done:
-                print("episode: {}/{}, score: {}, after time: {}".format(e, episodes, score, t))
+                print("episode: {}/{}, score: {}".format(e, episodes, score))
                 break
                 
             if ((t+1)% 4) == 0:
@@ -75,14 +75,19 @@ def main():
         
         scores.append(score)
         scores_window.append(score)
+        mean_score = np.mean(scores_window)
+        if (e >= 100) and (mean_score >= 10.0):
+            agent.save_checkpoint(epoch=e)
+            np.save(file="double_dqn_final_scores.npy", arr=np.asarray(scores))
+            print('\rEpisode {}\tAverage Score: {:.2f}'.format(e, mean_score))
+            break
+
         if (e)%100 == 0:
             mean_score = np.mean(scores_window)
             agent.save_checkpoint(epoch=e)
-            scores_arr = np.asarray(scores)
-            np.save(file="dqn_saved_scores.npy", arr=scores_arr)
+            np.save(file="double_dqn_saved_scores.npy", arr=np.asarray(scores))
             print('\rEpisode {}\tAverage Score: {:.2f}'.format(e, mean_score))
-            if mean_score >= 10.0:
-                break
+
 
 if __name__=='__main__':
     main()
