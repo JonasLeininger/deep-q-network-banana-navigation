@@ -94,3 +94,17 @@ class DoubeDQNAgent():
             'optimizer_state_dict': self.optimizer.state_dict(),
             'loss': self.loss
         }, self.checkpoint_path.format(epoch=epoch))
+
+    def load_checkpoint(self, checkpoint: str):
+        checkpoint = torch.load(checkpoint)
+        self.qnetwork.load_state_dict(checkpoint['model_state_dict'])
+        self.optimizer.load_state_dict(checkpoint['optimizer_state_dict'])
+        self.loss = checkpoint['loss']
+
+        self.qnetwork.eval()
+
+        self.tragetnetwork.load_state_dict(checkpoint['model_state_dict'])
+        self.optimizer.load_state_dict(checkpoint['optimizer_state_dict'])
+        self.loss = checkpoint['loss']
+
+        self.tragetnetwork.eval()
