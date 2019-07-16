@@ -40,4 +40,5 @@ For the Udacity Nano Degree the Unity Environment is simplified and pre compiled
 
 ### Instructions
 
-Follow the instructions in `Navigation.ipynb` to get started with training your own agent!  
+I trained two agents, a dqn agent and a double dqn agent, that you can train on your own with the two run scripts. 
+In the `unity_banana_navigation.ipynb` notebook the saved weights from successful runs are loaded and the scores are ploted.
