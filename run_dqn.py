@@ -1,10 +1,8 @@
-import time
 import numpy as np
 from collections import deque
 
 from unityagents import UnityEnvironment
-
-from pytorch.dqn_agent import Agent
+from pytorch.dqn_agent import DQNAgent
 
 def main():
     env = UnityEnvironment(file_name="Banana_Linux/Banana.x86_64")
@@ -23,7 +21,7 @@ def main():
     state = env_info.vector_observations[0]
     action_size = brain.vector_action_space_size
     state_size = len(state)
-    agent = Agent(state_size=state_size, action_size=action_size)
+    agent = DQNAgent(state_size=state_size, action_size=action_size)
     episodes = 5000
     scores_window = deque(maxlen=100)
     scores = []

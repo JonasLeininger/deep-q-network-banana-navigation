@@ -7,7 +7,7 @@ from pytorch.dqn import DQN
 from pytorch.replay_memory import ReplayMemory
 
 
-class Agent():
+class DoubeDQNAgent():
 
     def __init__(self, state_size: int, action_size: int):
         self.buffer_size = int(1e5)
